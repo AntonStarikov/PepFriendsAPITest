@@ -1,7 +1,8 @@
-import requests
+import json
 
-class MultipartEncoder:
-    pass
+import requests
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
 
 class PetFriends:
     def __init__(self):
@@ -35,7 +36,8 @@ class PetFriends:
         except:
             result = res.text
         return status, result
-    def add_new_pet(self, auth_key, data):
+
+    def add_new_pet(self, auth_key, name, animal_type, age, pet_photo):
         headers = {'auth_key': auth_key['key'], 'Content_Type': data.content_type}
         data = MultipartEncoder(
             fields={
@@ -45,3 +47,13 @@ class PetFriends:
                 'pet_photo': (pet_photo, open(pet_photo,''),'image/jpeg')
             }
         )
+        res = requests.post(self.base_url+'api/pets', headers=headers, data=data)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        print(result)
+        return status, result
+

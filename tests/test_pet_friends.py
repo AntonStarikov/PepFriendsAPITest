@@ -2,7 +2,7 @@ import os.path
 
 from api import PetFriends
 from settings import valid_email, valid_password
-from requests_toolbelt.multipart.encoder import MultipartEncoder
+
 
 
 pf = PetFriends
