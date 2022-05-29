@@ -38,7 +38,6 @@ class PetFriends:
         return status, result
 
     def add_new_pet(self, auth_key, name, animal_type, age, pet_photo):
-        headers = {'auth_key': auth_key['key'], 'Content_Type': data.content_type}
         data = MultipartEncoder(
             fields={
                 'name': name,
@@ -47,6 +46,7 @@ class PetFriends:
                 'pet_photo': (pet_photo, open(pet_photo,''),'image/jpeg')
             }
         )
+        headers = {'auth_key': auth_key['key'], 'Content_Type': data.content_type}
         res = requests.post(self.base_url+'api/pets', headers=headers, data=data)
         status = res.status_code
         result = ""
