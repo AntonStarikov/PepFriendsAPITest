@@ -1,5 +1,8 @@
 import requests
 
+class MultipartEncoder:
+    pass
+
 class PetFriends:
     def __init__(self):
         self.base_url = "https://petfriends1.herokuapp.com"
@@ -32,3 +35,13 @@ class PetFriends:
         except:
             result = res.text
         return status, result
+    def add_new_pet(self, auth_key, data):
+        headers = {'auth_key': auth_key['key'], 'Content_Type': data.content_type}
+        data = MultipartEncoder(
+            fields={
+                'name': name,
+                'animal_type': animal_type,
+                'age': age,
+                'pet_photo': (pet_photo, open(pet_photo,''),'image/jpeg')
+            }
+        )
