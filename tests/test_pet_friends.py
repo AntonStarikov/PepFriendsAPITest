@@ -29,7 +29,7 @@ def test_successful_delete_self_pet():
     _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
     if len(my_pets['pets']) == 0:
-        pf.add_new_pet(auth_key, "Ронни", "Русская борзая", "3", "images/Dog1.jpg")
+        pf.add_new_pet(auth_key, "Боб", "Голубой кот", "4", "images/Dog1.jpg")
         _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
     pet_id = my_pets['pets'][0]['id']
