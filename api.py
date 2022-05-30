@@ -70,7 +70,7 @@ class PetFriends:
         return status, result
 
     def update_pet_info(self, auth_key, pet_id, name, animal_type, age):
-        header = {'auth_key': auth_key['key']}
+        headers = {'auth_key': auth_key['key']}
         data = {
             'name': name,
             'age': age,
