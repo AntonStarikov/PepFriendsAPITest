@@ -24,3 +24,29 @@ def test_add_new_pet_with_valid_data(name='Ронни', animal_type='Русск�
     assert status == 200
     assert result['name'] == name
 
+def test_successful_delete_self_pet():
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    if len(my_pets['pets']) == 0:
+        pf.add_new_pet(auth_key, "Ронни", "Русская борзая", "3", "images/Dog1.jpg")
+        _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    pet_id = my_pets['pets'][0]['id']
+    status, _ = pf.delete_pet(auth_key, pet_id)
+
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+    assert status == 200
+    assert pet_id not in my_pets.values()
+
+
+def test_successful_update_self_pet_info(name='Рон', animal_type='Барбос', age=5):
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    if len(my_pets['pets']) > 0:
+        status, result = pf.update_pet_info(auth_key, my_pets['pets'][0]['id'], name, animal_type, age)
+        assert status == 200
+        assert result['name'] == name
+    else:
+        raise Exception("There is no my pets")
