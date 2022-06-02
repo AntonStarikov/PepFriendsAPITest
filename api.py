@@ -9,11 +9,11 @@ class PetFriends:
         self.base_url = "https://petfriends1.herokuapp.com"
 
     def get_api_key(self, email, password):
-
         headers = {
             'email': email,
             'password': password
         }
+
         res = requests.get(self.base_url+'/api/key', headers=headers)
         status = res.status_code
         result = ""
@@ -47,7 +47,7 @@ class PetFriends:
             }
         )
         headers = {'auth_key': auth_key['key'], 'Content_Type': data.content_type}
-        res = requests.post(self.base_url+'api/pets', headers=headers, data=data)
+        res = requests.post(self.base_url+'/api/pets', headers=headers, data=data)
         status = res.status_code
         result = ""
         try:
@@ -57,10 +57,10 @@ class PetFriends:
         print(result)
         return status, result
 
-    def delite_pet(self, auth_key, pet_id):
+    def delete_pet(self, auth_key, pet_id):
         headers = {'auth_key': auth_key['key']}
 
-        res = requests.delete(self.base_url+ 'api/pets/' + pet_id, headers=headers)
+        res = requests.delete(self.base_url+ '/api/pets/' + pet_id, headers=headers)
         status = res.status_code
         result = ""
         try:
@@ -77,7 +77,7 @@ class PetFriends:
             'animal_type': animal_type
         }
 
-        res = requests.put(self.base_url + 'api/pets/' + pet_id, headers=headers, data=data)
+        res = requests.put(self.base_url + '/api/pets/' + pet_id, headers=headers, data=data)
         status = res.status_code
         result = ""
         try:
