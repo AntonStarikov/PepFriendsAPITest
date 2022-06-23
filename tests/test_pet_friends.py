@@ -2,14 +2,14 @@ from api import PetFriends
 from settings import valid_email, valid_password
 import os
 
-pf = PetFriends
+pf = PetFriends()
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
     """ Проверка запроса api ключа и возврата статуса 200"""
 
-    status, result = pf.get_api_key(email,password)
+    status, result = pf.get_api_key(email, password)
     assert status == 200
-    assert 'key' in result
+    assert "key" in result
 
 def test_get_all_pets_with_valid_key(filter=''):
     """ Проверка запроса списка питомцев и возврата не пустого скписка"""
